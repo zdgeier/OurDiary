@@ -21,8 +21,6 @@ import kotlinx.android.synthetic.main.image_list_item.view.*
 import kotlinx.android.synthetic.main.text_list_item.view.*
 import java.text.SimpleDateFormat
 
-
-
 class MainListFragment : Fragment() {
     private val rootRef = FirebaseFirestore.getInstance()
     private val settings = FirebaseFirestoreSettings.Builder()

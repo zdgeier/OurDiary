@@ -36,15 +36,9 @@ class MainActivity : AppCompatActivity() {
             val response = IdpResponse.fromResultIntent(data)
 
             if (resultCode == Activity.RESULT_OK) {
-                // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 System.out.println(user?.displayName)
-                // ...
             } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
                 System.out.println(response?.error.toString())
             }
         }
