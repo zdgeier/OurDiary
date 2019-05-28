@@ -2,19 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
-            app:startDestination="@id/main_list3">
-
-    <fragment android:id="@+id/main_list3" android:name="com.zdgeier.ourdiary.MainListFragment"
-              android:label="fragment_main_list" tools:layout="@layout/fragment_main_list">
-        <action android:id="@+id/action_main_list3_to_viewEntryFragment" app:destination="@id/viewEntryFragment"/>
-        <action
-            android:id="@+id/action_main_list3_to_newEntryFragment"
-            app:destination="@id/newEntryFragment" />
-    </fragment>
-    <fragment android:id="@+id/viewEntryFragment" android:name="com.zdgeier.ourdiary.ViewEntryFragment"
-              android:label="ViewEntryFragment"/>
-    <fragment
-        android:id="@+id/newEntryFragment"
-        android:name="com.zdgeier.ourdiary.NewEntryFragment"
-        android:label="NewEntryFragment" />
+            app:startDestination="@id/diaryEntriesFragment">
+    <fragment android:id="@+id/diaryEntriesFragment"
+              android:name="com.zdgeier.ourdiary.diaryentries.DiaryEntriesFragment"
+              android:label="fragment_diary_entries" tools:layout="@layout/fragment_diary_entries"/>
 </navigation>
