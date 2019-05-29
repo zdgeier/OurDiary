@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -45,6 +46,8 @@ class CreateJoinFragment : Fragment() {
                 .addOnSuccessListener {
                     Log.d(TAG, "Created dairy with ID: ${it.id}")
                     model.diaryId.value = it
+
+                    findNavController().navigate(R.id.action_createJoinFragment_to_diaryFragment)
                 }
                 .addOnFailureListener {
                     Log.d(TAG, "Failed to create diary")
@@ -54,6 +57,8 @@ class CreateJoinFragment : Fragment() {
         v.joinButton.setOnClickListener {
             val diaryName = v.joinCodeEditText.text.toString()
             model.diaryId.value = rootRef.collection("diaries").document(diaryName)
+
+            findNavController().navigate(R.id.action_createJoinFragment_to_diaryFragment)
         }
 
         return v
