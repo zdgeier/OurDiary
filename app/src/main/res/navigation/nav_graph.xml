@@ -2,8 +2,16 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
-            app:startDestination="@id/diaryEntriesFragment">
-    <fragment android:id="@+id/diaryEntriesFragment"
-              android:name="com.zdgeier.ourdiary.diaryentries.DiaryEntriesFragment"
-              android:label="fragment_diary_entries" tools:layout="@layout/fragment_diary_entries"/>
+            app:startDestination="@id/createJoinFragment">
+    <fragment android:id="@+id/createJoinFragment" android:name="com.zdgeier.ourdiary.diaryselector.CreateJoinFragment"
+              android:label="fragment_create_join" tools:layout="@layout/fragment_create_join">
+        <action android:id="@+id/action_createJoinFragment_to_entryListFragment"
+                app:destination="@id/entryListFragment"/>
+    </fragment>
+    <fragment android:id="@+id/createEntry" android:name="com.zdgeier.ourdiary.CreateEntry"
+              android:label="fragment_create_entry" tools:layout="@layout/fragment_create_entry"/>
+    <fragment android:id="@+id/entryListFragment" android:name="com.zdgeier.ourdiary.diaryentries.EntryListFragment"
+              android:label="fragment_entry_list" tools:layout="@layout/fragment_entry_list">
+        <action android:id="@+id/action_entryListFragment_to_createEntry" app:destination="@id/createEntry"/>
+    </fragment>
 </navigation>

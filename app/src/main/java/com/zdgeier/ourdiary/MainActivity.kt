@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.firebase.ui.auth.AuthUI
 
 class MainActivity : AppCompatActivity() {
@@ -16,20 +17,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var diaryViewModel: DiaryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        diaryViewModel = ViewModelProviders.of(this).get(DiaryViewModel::class.java)
 
         loginViewModel.firebaseUser.observe(this, Observer {
             if (it == null) {
                 signIn()
             }
             else {
-                Log.d(TAG, "Logged in as: ${it.email} ${it.displayName}")
+                Log.d(TAG, "Logged in as: ${it.email} ${it.displayName} ${it.uid}")
             }
+        })
+
+        diaryViewModel.diaryId.observe(this, Observer {
+            Log.d(TAG, "Joined diary with ID: ${it.id}")
+            findNavController(R.id.nav_host_fragment)
+                .navigate(R.id.action_createJoinFragment_to_entryListFragment)
         })
     }
 

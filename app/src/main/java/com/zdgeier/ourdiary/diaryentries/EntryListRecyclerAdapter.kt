@@ -10,7 +10,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.zdgeier.ourdiary.R
 import kotlinx.android.synthetic.main.text_list_item.view.*
 
-class DiaryEntryFirestoreRecyclerAdapter internal constructor(options: FirestoreRecyclerOptions<DiaryEntry>) :
+class DiaryEntriesRecyclerAdapter internal constructor(options: FirestoreRecyclerOptions<DiaryEntry>) :
     FirestoreRecyclerAdapter<DiaryEntry, DiaryEntryViewHolder>(options) {
 
     private val TEXT_TYPE = 0
