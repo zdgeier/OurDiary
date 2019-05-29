@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         diaryViewModel.diaryId.observe(this, Observer {
             Log.d(TAG, "Joined diary with ID: ${it.id}")
             findNavController(R.id.nav_host_fragment)
-                .navigate(R.id.action_createJoinFragment_to_entryListFragment)
+                .navigate(R.id.action_createJoinFragment_to_diaryFragment)
         })
     }
 

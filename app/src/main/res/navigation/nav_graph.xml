@@ -5,13 +5,12 @@
             app:startDestination="@id/createJoinFragment">
     <fragment android:id="@+id/createJoinFragment" android:name="com.zdgeier.ourdiary.diaryselector.CreateJoinFragment"
               android:label="fragment_create_join" tools:layout="@layout/fragment_create_join">
-        <action android:id="@+id/action_createJoinFragment_to_entryListFragment"
-                app:destination="@id/entryListFragment"/>
+        <action android:id="@+id/action_createJoinFragment_to_diaryFragment" app:destination="@id/diaryFragment"/>
     </fragment>
-    <fragment android:id="@+id/createEntry" android:name="com.zdgeier.ourdiary.CreateEntry"
+    <fragment android:id="@+id/createEntry" android:name="com.zdgeier.ourdiary.createentry.CreateEntry"
               android:label="fragment_create_entry" tools:layout="@layout/fragment_create_entry"/>
-    <fragment android:id="@+id/entryListFragment" android:name="com.zdgeier.ourdiary.diaryentries.EntryListFragment"
-              android:label="fragment_entry_list" tools:layout="@layout/fragment_entry_list">
-        <action android:id="@+id/action_entryListFragment_to_createEntry" app:destination="@id/createEntry"/>
+    <fragment android:id="@+id/diaryFragment" android:name="com.zdgeier.ourdiary.DiaryFragment"
+              android:label="fragment_diary" tools:layout="@layout/fragment_diary">
+        <action android:id="@+id/action_diaryFragment_to_createEntry" app:destination="@id/createEntry"/>
     </fragment>
 </navigation>

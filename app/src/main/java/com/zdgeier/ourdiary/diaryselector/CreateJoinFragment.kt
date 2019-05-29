@@ -14,7 +14,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.zdgeier.ourdiary.DiaryViewModel
 
 import com.zdgeier.ourdiary.R
-import com.zdgeier.ourdiary.diaryentries.DiaryEntry
 import kotlinx.android.synthetic.main.fragment_create_join.view.*
 
 class CreateJoinFragment : Fragment() {

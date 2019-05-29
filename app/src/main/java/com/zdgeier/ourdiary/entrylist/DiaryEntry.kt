@@ -1,4 +1,4 @@
-package com.zdgeier.ourdiary.diaryentries
+package com.zdgeier.ourdiary.entrylist
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
@@ -9,13 +9,4 @@ class DiaryEntry(
     var text: String = "",
     var location: GeoPoint = GeoPoint(0.0, 0.0),
     var image : String = ""
-) {
-    fun getTimeDisplay() =
-        SimpleDateFormat.getDateTimeInstance().format(time.toDate())
-
-    fun getTextDisplay() =
-            text
-
-    fun getLocationDisplay() =
-            location.toString()
-}
+)

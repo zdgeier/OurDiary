@@ -1,4 +1,4 @@
-package com.zdgeier.ourdiary.diaryentries
+package com.zdgeier.ourdiary.entrylist
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.zdgeier.ourdiary.R
 import kotlinx.android.synthetic.main.text_list_item.view.*
+import java.text.SimpleDateFormat
 
 class DiaryEntriesRecyclerAdapter internal constructor(options: FirestoreRecyclerOptions<DiaryEntry>) :
     FirestoreRecyclerAdapter<DiaryEntry, DiaryEntryViewHolder>(options) {
@@ -34,7 +35,7 @@ class DiaryEntriesRecyclerAdapter internal constructor(options: FirestoreRecycle
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.editDropdown -> null // TODO add edit action
-                R.id.deleteDropdown -> null // TODO add delete action
+                R.id.deleteDropdown -> snapshots.getSnapshot(position).reference.delete()
             }
             true
         }
@@ -43,9 +44,9 @@ class DiaryEntriesRecyclerAdapter internal constructor(options: FirestoreRecycle
 
     private inner class TextDiaryEntryViewHolder(v : View) : DiaryEntryViewHolder(v) {
         override fun setDiaryEntry(diaryEntry : DiaryEntry) {
-            v.primary_text.text = diaryEntry.getTimeDisplay()
-            v.sub_text.text = diaryEntry.getLocationDisplay()
-            v.text_main_text.text = diaryEntry.getTextDisplay()
+            v.primary_text.text = SimpleDateFormat.getDateTimeInstance().format(diaryEntry.time.toDate())
+            v.sub_text.text = diaryEntry.location.toString()
+            v.text_main_text.text = diaryEntry.text
 
             v.textImageButton.setOnClickListener{
                 showPopupMenu(v.textImageButton, diaryEntry, layoutPosition)

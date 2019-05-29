@@ -1,4 +1,4 @@
-package com.zdgeier.ourdiary.diaryentries
+package com.zdgeier.ourdiary.entrylist
 
 
 import android.os.Bundle
