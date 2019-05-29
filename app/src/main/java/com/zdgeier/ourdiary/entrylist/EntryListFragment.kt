@@ -7,15 +7,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.Query
 import com.zdgeier.ourdiary.DiaryViewModel
 import com.zdgeier.ourdiary.R
+import com.zdgeier.ourdiary.editentry.EditEntryFragment
+import com.zdgeier.ourdiary.editentry.EditEntryFragment.Companion.ARG_ENTRY_DOCUMENT_PATH
 import kotlinx.android.synthetic.main.fragment_entry_list.view.*
 
 class EntryListFragment : Fragment(), DiaryEntriesRecyclerAdapter.OnPopupItemSelectedListener {
@@ -54,9 +59,16 @@ class EntryListFragment : Fragment(), DiaryEntriesRecyclerAdapter.OnPopupItemSel
 
     override fun onPopupItemSelected(itemId: Int, entryReference: DocumentReference) {
         when (itemId) {
-            R.id.editDropdown -> Log.d(TAG, "Edit pressed")
+            R.id.editDropdown -> editEntry(entryReference)
             R.id.deleteDropdown -> entryReference.delete()
         }
+    }
+
+    private fun editEntry(entryReference: DocumentReference) {
+        val bundle = bundleOf(
+            ARG_ENTRY_DOCUMENT_PATH to entryReference.path
+        )
+        findNavController().navigate(R.id.action_diaryFragment_to_editEntryFragment, bundle)
     }
 
     private fun getQuery(diaryReference : DocumentReference) =

@@ -12,12 +12,17 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.zdgeier.ourdiary.DiaryViewModel
 
 import com.zdgeier.ourdiary.R
 import kotlinx.android.synthetic.main.fragment_create_join.view.*
 
 class CreateJoinFragment : Fragment() {
+    private val settings = FirebaseFirestoreSettings.Builder()
+        .setPersistenceEnabled(true)
+        .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+        .build()
     private val rootRef = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
@@ -25,6 +30,10 @@ class CreateJoinFragment : Fragment() {
 
     companion object {
         private val TAG = "CreateJoinFragment"
+    }
+
+    init {
+        rootRef.firestoreSettings = settings
     }
 
     override fun onCreateView(
