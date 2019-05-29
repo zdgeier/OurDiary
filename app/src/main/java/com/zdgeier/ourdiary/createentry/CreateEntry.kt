@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import com.zdgeier.ourdiary.DiaryViewModel
 import com.zdgeier.ourdiary.R
@@ -40,6 +41,7 @@ class CreateEntry : Fragment() {
                 )
             )?.addOnSuccessListener {
                 Log.d(TAG, "Created diary entry with ID: ${it.id}")
+                findNavController().popBackStack()
             }?.addOnFailureListener {
                 Log.d(TAG, "Failed to create diary entry ${it.printStackTrace()}")
             }

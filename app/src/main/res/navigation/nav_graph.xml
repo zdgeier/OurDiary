@@ -12,5 +12,8 @@
     <fragment android:id="@+id/diaryFragment" android:name="com.zdgeier.ourdiary.DiaryFragment"
               android:label="fragment_diary" tools:layout="@layout/fragment_diary">
         <action android:id="@+id/action_diaryFragment_to_createEntry" app:destination="@id/createEntry"/>
+        <action android:id="@+id/action_diaryFragment_to_editEntryFragment" app:destination="@id/editEntryFragment"/>
     </fragment>
+    <fragment android:id="@+id/editEntryFragment" android:name="com.zdgeier.ourdiary.EditEntryFragment"
+              android:label="fragment_edit_entry" tools:layout="@layout/fragment_edit_entry"/>
 </navigation>

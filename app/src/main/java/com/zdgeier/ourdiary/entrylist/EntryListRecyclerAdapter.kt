@@ -7,11 +7,13 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.DocumentReference
 import com.zdgeier.ourdiary.R
 import kotlinx.android.synthetic.main.text_list_item.view.*
 import java.text.SimpleDateFormat
 
-class DiaryEntriesRecyclerAdapter internal constructor(options: FirestoreRecyclerOptions<DiaryEntry>) :
+class DiaryEntriesRecyclerAdapter internal constructor(options: FirestoreRecyclerOptions<DiaryEntry>,
+                                                       private val popupCallback: OnPopupItemSelectedListener) :
     FirestoreRecyclerAdapter<DiaryEntry, DiaryEntryViewHolder>(options) {
 
     private val TEXT_TYPE = 0
@@ -29,17 +31,18 @@ class DiaryEntriesRecyclerAdapter internal constructor(options: FirestoreRecycle
         }
     }
 
-    private fun showPopupMenu(view : View, diaryEntry : DiaryEntry, position: Int) {
+    private fun showPopupMenu(view : View, position: Int) {
         val popup = PopupMenu(view.context, view)
         popup.menuInflater.inflate(R.menu.card, popup.menu)
         popup.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.editDropdown -> null // TODO add edit action
-                R.id.deleteDropdown -> snapshots.getSnapshot(position).reference.delete()
-            }
+            popupCallback.onPopupItemSelected(it.itemId, snapshots.getSnapshot(position).reference)
             true
         }
         popup.show()
+    }
+
+    interface OnPopupItemSelectedListener {
+        fun onPopupItemSelected(itemId: Int, entryReference: DocumentReference)
     }
 
     private inner class TextDiaryEntryViewHolder(v : View) : DiaryEntryViewHolder(v) {
@@ -49,7 +52,7 @@ class DiaryEntriesRecyclerAdapter internal constructor(options: FirestoreRecycle
             v.text_main_text.text = diaryEntry.text
 
             v.textImageButton.setOnClickListener{
-                showPopupMenu(v.textImageButton, diaryEntry, layoutPosition)
+                showPopupMenu(v.textImageButton, layoutPosition)
             }
         }
     }
