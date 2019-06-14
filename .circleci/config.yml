@@ -31,9 +31,26 @@ jobs:
           destination: reports
       - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/test-results
+
+  deploy-internal:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Install fastlane
+          command: bundle install
       - run:
           name: Get api-5146002300548282708-397628-4a7c8d6b9073.json
           command: echo $PLAY_DEVELOPER_API_KEY | base64 -di > app/api-5146002300548282708-397628-4a7c8d6b9073.json
       - run:
+          name: Init fastlane supply
+          command: bundle exec fastlane supply init
+      - run:
           name: Deploy to internal track
           command: bundle exec fastlane internal
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }} 
