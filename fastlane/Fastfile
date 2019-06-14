@@ -33,12 +33,11 @@ platform :android do
   desc "Submit a new Internal Build"
   lane :internal do
     gradle(
-        task: 'assemble',
-        build_type: 'Release'
+        task: 'bundleRelease',
     )
     upload_to_play_store(
         skip_upload_apk: 'true',
-        aab: 'app/release/app.aab',
+        aab: lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH].to_s,
         track: 'internal'
     )
   end

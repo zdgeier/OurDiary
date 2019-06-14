@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+def props = new Properties()
+file("../signing.properties").withInputStream { props.load(it) }
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -14,10 +17,19 @@ android {
         versionName "${getVersionNameTimestamp()}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            keyAlias props.getProperty('keyAlias')
+            keyPassword props.getProperty('keyPassword')
+            storeFile file(props.getProperty('storeFile'))
+            storePassword props.getProperty('storePassword')
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     testOptions {

@@ -51,6 +51,12 @@ jobs:
           name: Get api-5146002300548282708-397628-4a7c8d6b9073.json
           command: echo $PLAY_DEVELOPER_API_KEY | base64 -di > app/api-5146002300548282708-397628-4a7c8d6b9073.json
       - run:
+          name: Get keystore.jks
+          command: echo $KEYSTORE | base64 -di > app/keystore.jks
+      - run:
+          name: Get signing.properties
+          command: echo $SIGNING_PROPERTIES | base64 -di > signing.properties
+      - run:
           name: Init fastlane supply
           command: bundle exec fastlane supply init
       - run:
