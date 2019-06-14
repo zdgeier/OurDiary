@@ -1,11 +1,14 @@
 version: 2
+
+defaults: &defaults
+  docker:
+    - image: circleci/android:api-28-alpha
+  environment:
+    JVM_OPTS: -Xmx3200m
+
 jobs:
   build:
-    working_directory: ~/code
-    docker:
-      - image: circleci/android:api-28
-    environment:
-      JVM_OPTS: -Xmx3200m
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -33,6 +36,7 @@ jobs:
           path: app/build/test-results
 
   deploy-internal:
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
