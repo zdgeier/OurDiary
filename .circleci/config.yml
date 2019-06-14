@@ -14,31 +14,6 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Get google-services.json
-          command: echo $GOOGLE_SERVICES | base64 -di > app/google-services.json
-      - run:
-          name: Run Tests
-          command: ./gradlew lint test
-      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
-          path: app/build/reports
-          destination: reports
-      - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: app/build/test-results
-
-  deploy-internal:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
           name: Install fastlane dependencies
           command: gem update --system && gem install bundler
       - run:
@@ -66,16 +41,3 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }} 
-
-workflows:
-  version: 2
-  deploy-internal:
-    jobs:
-      - build
-      - hold:
-          type: approval
-          requires:
-            - build
-      - deploy-internal:
-          requires:
-            - hold
