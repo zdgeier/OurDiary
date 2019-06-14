@@ -33,7 +33,6 @@ jobs:
           path: app/build/test-results
 
   deploy-internal:
-    <<: *defaults
     steps:
       - checkout
       - restore_cache:
