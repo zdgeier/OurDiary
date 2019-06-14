@@ -31,4 +31,9 @@ jobs:
           destination: reports
       - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/test-results
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+      - run:
+          name: Get api-5146002300548282708-397628-4a7c8d6b9073.json
+          command: echo $PLAY_DEVELOPER_API_KEY | base64 -di > app/api-5146002300548282708-397628-4a7c8d6b9073.json
+      - run:
+          name: Deploy to internal track
+          command: bundle exec fastlane internal
