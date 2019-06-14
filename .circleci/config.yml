@@ -39,11 +39,14 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: Install fastlane dependancies
+          name: Install fastlane dependencies
           command: gem update --system && gem install bundler
       - run:
           name: Install fastlane
           command: bundle install
+      - run:
+          name: Get google-services.json
+          command: echo $GOOGLE_SERVICES | base64 -di > app/google-services.json
       - run:
           name: Get api-5146002300548282708-397628-4a7c8d6b9073.json
           command: echo $PLAY_DEVELOPER_API_KEY | base64 -di > app/api-5146002300548282708-397628-4a7c8d6b9073.json
