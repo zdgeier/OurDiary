@@ -10,8 +10,8 @@ android {
         applicationId "com.zdgeier.ourdiary"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode getVersionCodeTimestamp()
+        versionName "${getVersionNameTimestamp()}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -23,6 +23,18 @@ android {
     testOptions {
         unitTests.includeAndroidResources = true
     }
+}
+
+def getVersionNameTimestamp() {
+    return new Date().format('yy.MM.ddHHmm')
+}
+
+def getVersionCodeTimestamp() {
+    def date = new Date()
+    def formattedDate = date.format('yyMMddHHmm')
+    def code = formattedDate.toInteger()
+    println sprintf("VersionCode: %d", code)
+    return code
 }
 
 dependencies {

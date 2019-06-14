@@ -1,0 +1,2 @@
+json_key_file("app/api-5146002300548282708-397628-4a7c8d6b9073.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("com.zdgeier.ourdiary") # e.g. com.krausefx.app
