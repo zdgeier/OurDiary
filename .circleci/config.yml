@@ -57,3 +57,16 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }} 
+
+workflows:
+  version: 2
+  deploy-internal:
+    jobs:
+      - build
+      - hold:
+          type: approval
+          requires:
+            - build
+      - deploy-internal:
+          requires:
+            - hold
